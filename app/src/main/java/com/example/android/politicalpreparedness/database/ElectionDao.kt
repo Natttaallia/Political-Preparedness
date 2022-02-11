@@ -25,4 +25,7 @@ interface ElectionDao {
     @Query("SELECT * FROM election_table where isSaved = true")
     fun getSavedElections(): LiveData<List<Election>>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertElection(election: Election)
+
 }

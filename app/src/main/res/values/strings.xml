@@ -4,6 +4,13 @@
     <string name="upcoming_elections">Upcoming Elections</string>
     <string name="find_my_representatives">Find my representatives</string>
     <string name="saved_elections">Saved Elections</string>
+    <string name="viewmodel_factory_error">Unable to construct viewModel</string>
+    <string name="election_information">Election Information</string>
+    <string name="voting_location">Voting Location</string>
+    <string name="ballot_information">Ballot Information</string>
+    <string name="corresponding_address">Corresponding address</string>
+    <string name="follow_election">Follow election</string>
+    <string name="unfollow_election">Unfollow election</string>
 
     <!-- TODO: Add necessary string values -->
 
