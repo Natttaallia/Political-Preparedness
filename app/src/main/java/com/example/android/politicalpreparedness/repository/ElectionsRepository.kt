@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
+import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class ElectionsRepository(private val database: ElectionDatabase) {
 
@@ -21,31 +23,20 @@ class ElectionsRepository(private val database: ElectionDatabase) {
         }
     }
 
-    suspend fun getVoterInfo(electionId: Int, address: String): VoterInfoResponse? {
-        try {
+    suspend fun getVoterInfo(electionId: Int, address: Division): VoterInfoResponse? {
+        return try {
             withContext(Dispatchers.IO) {
-                return@withContext CivicsApi.retrofitService.getVoterInfo(electionId, address)
+                CivicsApi.retrofitService.getVoterInfo(electionId, address.toFormattedString())
                     .await()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (ex: Exception) {
+            null
         }
-        return null
     }
 
-    suspend fun saveElection(election: Election) {
+    suspend fun updateElection(election: Election) {
         withContext(Dispatchers.IO) {
             database.electionDao.insertElection(election)
         }
-    }
-
-    suspend fun removeElection(electionId: Int) {
-        withContext(Dispatchers.IO) {
-            database.electionDao.deleteById(electionId)
-        }
-    }
-
-    fun getElectionById(electionId: Int): Election? {
-        return elections.value?.find { it.id == electionId }
     }
 }

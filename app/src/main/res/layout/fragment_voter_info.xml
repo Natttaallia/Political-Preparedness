@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="voterViewModel"
             type="com.example.android.politicalpreparedness.election.VoterInfoViewModel" />
@@ -58,6 +59,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:text="@string/voting_location"
             android:paddingTop="@dimen/default_padding"
+            android:visibility="@{(voterViewModel.voterInfo.state[0].electionAdministrationBody.votingLocationFinderUrl != null) ? View.VISIBLE : View.GONE}"
             android:onClick="@{()->voterViewModel.onClickUrl(voterViewModel.voterInfo.state[0].electionAdministrationBody.votingLocationFinderUrl)}"
             app:layout_constraintTop_toBottomOf="@id/state_header"
             app:layout_constraintStart_toStartOf="@id/election_date" />
@@ -66,8 +68,9 @@
             android:id="@+id/state_ballot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->voterViewModel.onClickUrl(voterViewModel.voterInfo.state[0].electionAdministrationBody.electionInfoUrl)}"
+            android:onClick="@{()->voterViewModel.onClickUrl(voterViewModel.voterInfo.state[0].electionAdministrationBody.ballotInfoUrl)}"
             android:text="@string/ballot_information"
+            android:visibility="@{(voterViewModel.voterInfo.state[0].electionAdministrationBody.ballotInfoUrl != null) ? View.VISIBLE : View.GONE}"
             android:paddingTop="@dimen/default_padding"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintTop_toBottomOf="@id/state_locations"
@@ -84,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/default_padding"
+            android:visibility="@{(voterViewModel.voterInfo.state[0].electionAdministrationBody.correspondenceAddress != null) ? View.VISIBLE : View.GONE}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:text="@string/corresponding_address"
             app:layout_constraintTop_toBottomOf="@id/state_ballot"
@@ -93,6 +97,7 @@
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{(voterViewModel.voterInfo.state[0].electionAdministrationBody.correspondenceAddress != null) ? View.VISIBLE : View.GONE}"
             android:text="@{voterViewModel.voterInfo.state.get(0).electionAdministrationBody.correspondenceAddress.toFormattedString()}"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
             app:layout_constraintStart_toStartOf="@id/election_date" />
@@ -105,11 +110,25 @@
             android:layout_margin="@dimen/global_margin"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/white"
-            android:onClick="@{() -> (!voterViewModel.election.isSaved()) ? voterViewModel.saveElection(voterViewModel.election) : voterViewModel.removeElection(voterViewModel.election.id)}"
-            android:text="@{(!voterViewModel.election.isSaved()) ? @string/follow_election : @string/unfollow_election}"
+            android:visibility="@{(voterViewModel.voterInfo != null) ? View.VISIBLE : View.GONE}"
+            android:onClick="@{() -> voterViewModel.updateElection(voterViewModel.election)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:text="@string/follow_election" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:visibility="@{(voterViewModel.voterInfo == null) ? View.VISIBLE : View.GONE}"
+            android:padding="@dimen/default_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/voter_info_error"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

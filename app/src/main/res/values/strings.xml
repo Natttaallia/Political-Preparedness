@@ -11,6 +11,7 @@
     <string name="corresponding_address">Corresponding address</string>
     <string name="follow_election">Follow election</string>
     <string name="unfollow_election">Unfollow election</string>
+    <string name="voter_info_error">There is no information. Please try another state</string>
 
     <!-- TODO: Add necessary string values -->
 

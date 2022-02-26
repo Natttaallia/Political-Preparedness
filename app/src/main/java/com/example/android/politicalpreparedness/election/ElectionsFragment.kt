@@ -17,7 +17,7 @@ import com.example.android.politicalpreparedness.election.adapter.ElectionListen
 class ElectionsFragment: Fragment() {
 
     private val viewModel: ElectionsViewModel by lazy {
-        val viewModelFactory = ElectionsViewModelFactory(requireNotNull(this.activity).application)
+        val viewModelFactory = ElectionsViewModelFactory(requireContext())
         ViewModelProvider(this, viewModelFactory)
             .get(ElectionsViewModel::class.java)
     }
@@ -31,7 +31,6 @@ class ElectionsFragment: Fragment() {
         binding.electionsViewModel = viewModel
 
         val upcomingAdapter = ElectionListAdapter(ElectionListener { election ->
-            findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election.id, election.division))
             viewModel.navigateToVoterInformation(election)
         })
         binding.upcomingElectionsRv.adapter = upcomingAdapter
@@ -42,7 +41,6 @@ class ElectionsFragment: Fragment() {
         }
 
         val savedAdapter = ElectionListAdapter(ElectionListener {
-            findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
             viewModel.navigateToVoterInformation(it)
         })
         binding.savedElectionsRv.adapter = savedAdapter
@@ -54,7 +52,7 @@ class ElectionsFragment: Fragment() {
 
         viewModel.navigateToVoterInformation.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
+                findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.isSaved, it.division))
                 viewModel.navigateToVoterInformationCompleted()
             }
         })

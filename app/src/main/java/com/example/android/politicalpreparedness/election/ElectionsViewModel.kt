@@ -1,18 +1,16 @@
 package com.example.android.politicalpreparedness.election
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import android.content.Context
+import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
-class ElectionsViewModel(application: Application) : AndroidViewModel(application) {
+class ElectionsViewModel(context: Context) : ViewModel() {
 
-    private val database = ElectionDatabase.getInstance(application)
+    private val database = ElectionDatabase.getInstance(context)
     private val electionsRepository = ElectionsRepository(database)
 
     val upcomingElections = electionsRepository.elections
