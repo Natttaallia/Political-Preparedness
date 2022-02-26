@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
@@ -42,5 +43,9 @@ class ElectionsRepository(private val database: ElectionDatabase) {
         withContext(Dispatchers.IO) {
             database.electionDao.deleteById(electionId)
         }
+    }
+
+    fun getElectionById(electionId: Int): Election? {
+        return elections.value?.find { it.id == electionId }
     }
 }

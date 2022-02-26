@@ -22,7 +22,7 @@ interface ElectionDao {
     @Query("DELETE FROM election_table")
     fun clear()
 
-    @Query("SELECT * FROM election_table where isSaved = true")
+    @Query("SELECT * FROM election_table where isSaved = 1")
     fun getSavedElections(): LiveData<List<Election>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

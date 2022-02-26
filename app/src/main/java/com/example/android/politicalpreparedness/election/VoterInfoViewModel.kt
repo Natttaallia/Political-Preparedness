@@ -25,12 +25,13 @@ class VoterInfoViewModel(application: Application) : AndroidViewModel(applicatio
     val url: LiveData<String>
         get() = _url
 
-    fun getVoterInfo() {
+    fun getVoterInfo(division: String?, electionId: Int) {
         viewModelScope.launch {
-            val result = repository.getVoterInfo(election.value?.id ?: 0, election.value?.division.toString())
+            val result = repository.getVoterInfo(electionId, division.toString())
             if (result != null) {
                 _voterInfo.postValue(result)
             }
+            _election.value = repository.getElectionById(electionId)
         }
     }
 
