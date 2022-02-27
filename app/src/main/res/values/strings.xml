@@ -12,6 +12,17 @@
     <string name="follow_election">Follow election</string>
     <string name="unfollow_election">Unfollow election</string>
     <string name="voter_info_error">There is no information. Please try another state</string>
+    <string name="representative_search_title">Representative search</string>
+    <string name="address_line_hint_1">Address line 1</string>
+    <string name="address_line_hint_2">Address line 2</string>
+    <string name="city_line_hint">City</string>
+    <string name="use_my_location">Use my location</string>
+    <string name="my_representatives">My representatives</string>
+    <string name="img_description">Representative image</string>
+    <string name="browser_description">Browser image</string>
+    <string name="twitter_description">Twitter image</string>
+    <string name="facebook_description">Facebook image</string>
+    <string name="zip_hint">Zip</string>
 
     <!-- TODO: Add necessary string values -->
 

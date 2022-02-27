@@ -1,6 +1,5 @@
 package com.example.android.politicalpreparedness.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi

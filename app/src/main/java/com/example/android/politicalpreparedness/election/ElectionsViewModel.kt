@@ -1,6 +1,5 @@
 package com.example.android.politicalpreparedness.election
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.database.ElectionDatabase
